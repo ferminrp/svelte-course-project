@@ -6,18 +6,20 @@
 <section id="meetups">
     {#each meetups as meetup, i (meetup.id)}
         <MeetupItem
+            id={meetup.id}
             title={meetup.title}
             subtitle={meetup.subtitle}
             description={meetup.description}
             imageUrl={meetup.imageUrl}
             contactEmail={meetup.contactEmail}
             address={meetup.address}
+            isFav={meetup.isFavorite}
+            on:togglefavorite
         />
     {/each}
 </section>
 
 <style>
-    
     section {
         width: 100%;
         display: grid;
