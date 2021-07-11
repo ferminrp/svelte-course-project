@@ -56,26 +56,22 @@
         <TextInput
             id="title"
             label="Title"
-            type="text"
             value="{title}"
             on:input={(event) => (title = event.target.value)}
         />
         <TextInput
             id="subtitle"
-            type="text"
             label="Subtitle"
             value="{subtitle}"
             on:input={(event) => (subtitle = event.target.value)}
         />
         <TextInput
-            type="text"
             id="address"
             label="Address"
             value="{address}"
             on:input={(event) => (address = event.target.value)}
         />
         <TextInput
-            type="text"
             id="imageUrl"
             label="Image Url"
             value="{imageUrl}"
