@@ -4,6 +4,7 @@
 
     import TextInput from "../UI/TextInput.svelte";
     import Button from "../UI/Button.svelte";
+    import Modal from "../UI/Modal.svelte";
 
     let title = "";
     let subtitle = "";
@@ -24,6 +25,7 @@
     }
 </script>
 
+<Modal title="Edit Meetup Data" on:cancel>
 <form on:submit|preventDefault={submitForm}>
     <TextInput
         id="title"
@@ -63,13 +65,12 @@
         value={description}
         on:input={(event) => (description = event.target.value)}
     />
-    <Button type="submit">Save</Button>
+    <!--<Button type="submit">Save</Button>-->
 </form>
+</Modal>
 
 <style>
     form {
-        width: 30rem;
-        max-width: 90%;
-        margin: auto;
+        width: 100%;
     }
 </style>
