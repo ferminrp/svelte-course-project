@@ -17,7 +17,7 @@
       description: event.detail.description,
       imageUrl: event.detail.imageUrl,
       contactEmail: event.detail.email,
-      address: event.detail.address
+      address: event.detail.address,
     };
 
     // meetups.push(newMeetup); // DOES NOT WORK!
@@ -35,6 +35,18 @@
   }
 </script>
 
+<Header />
+
+<main>
+  <div class="meetup-controls">
+    <Button on:click={() => (editMode = "add")}>New Meetup</Button>
+  </div>
+  {#if editMode === "add"}
+    <EditMeetup on:save={addMeetup} on:cancel={cancelEdit} />
+  {/if}
+  <MeetupGrid meetups={$meetups} on:togglefavorite={toggleFavorite} />
+</main>
+
 <style>
   main {
     margin-top: 5rem;
@@ -44,15 +56,3 @@
     margin: 1rem;
   }
 </style>
-
-<Header />
-
-<main>
-  <div class="meetup-controls">
-    <Button on:click={() => (editMode = 'add')}>New Meetup</Button>
-  </div>
-  {#if editMode === 'add'}
-    <EditMeetup on:save={addMeetup} on:cancel={cancelEdit} />
-  {/if}
-  <MeetupGrid meetups={$meetups} on:togglefavorite={toggleFavorite} />
-</main>
