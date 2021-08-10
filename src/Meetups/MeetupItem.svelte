@@ -1,9 +1,8 @@
 <script>
-  import Button from "../UI/Button.svelte";
   import { createEventDispatcher } from "svelte";
-  import Badge from '../UI/Badge.svelte';
-
-  const dispatch = createEventDispatcher();
+  import meetups from "./meetups-store.js";
+  import Button from "../UI/Button.svelte";
+  import Badge from "../UI/Badge.svelte";
 
   export let id;
   export let title;
@@ -11,39 +10,15 @@
   export let imageUrl;
   export let description;
   export let address;
-  export let contactEmail;
+  export let email;
   export let isFav;
-</script>
 
-<article>
-  <header>
-    <h1>{title} 
-      {#if isFav}
-      <Badge>FAVORITE</Badge>
-      {/if}
-    </h1>
-    <h2>{subtitle}</h2>
-    <p>{address}</p>
-  </header>
-  <div class="image">
-    <img src={imageUrl} alt="" />
-  </div>
-  <div class="content">
-    <p>{description}</p>
-  </div>
-  <footer>
-    <Button href="mailto:{contactEmail}">Contact</Button>
-    <Button
-      color="{isFav ? null : 'success'}"
-      type="button"
-      mode="outline"
-      on:click={() => dispatch("togglefavorite", id)}
-    >
-    {isFav ? "Unfavorite" : "Favorite"}
-  </Button>
-    <Button type="button">Show Details</Button>
-  </footer>
-</article>
+  const dispatch = createEventDispatcher();
+
+  function toggleFavorite() {
+    meetups.toggleFavorite(id);
+  }
+</script>
 
 <style>
   article {
@@ -102,3 +77,37 @@
     height: 4rem;
   }
 </style>
+
+<article>
+  <header>
+    <h1>
+      {title}
+      {#if isFav}
+        <Badge>FAVORITE</Badge>
+      {/if}
+    </h1>
+    <h2>{subtitle}</h2>
+    <p>{address}</p>
+  </header>
+  <div class="image">
+    <img src={imageUrl} alt={title} />
+  </div>
+  <div class="content">
+    <p>{description}</p>
+  </div>
+  <footer>
+    <Button mode="outline" type="button" on:click={() => dispatch('edit', id)}>
+      Edit
+    </Button>
+    <Button
+      mode="outline"
+      color={isFav ? null : 'success'}
+      type="button"
+      on:click={toggleFavorite}>
+      {isFav ? 'Unfavorite' : 'Favorite'}
+    </Button>
+    <Button type="button" on:click={() => dispatch('showdetails', id)}>
+      Show Details
+    </Button>
+  </footer>
+</article>
